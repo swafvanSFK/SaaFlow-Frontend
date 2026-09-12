@@ -8,21 +8,24 @@ import { setMessages } from '../redux/messageSlice'
 
 const ChatArea = () => {
 
-  const { selectedConversation } = useSelector((state) => state.conversation);
+  const { selectedConversation } = useSelector(state => state.conversation);
   const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchMessages = async () => {
       if (selectedConversation) {
+
+        if (selectedConversation.title == "New Chat") return
+
         const data = await getMessages(selectedConversation?._id)
         dispatch(setMessages(data))
       }
     }
     fetchMessages()
-  }, [selectedConversation])
+  }, [selectedConversation?._id])
 
   return (
-    <div className='flex-1 flex flex-col'>
+    <div className='flex-1 flex flex-col min-w-0'>
         <Nav/>
         <MessageList/>
         <ChatInput/>

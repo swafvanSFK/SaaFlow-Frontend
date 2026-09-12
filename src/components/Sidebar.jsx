@@ -35,8 +35,8 @@ const Sidebar = () => {
                     <PanelRight/>
                 </button>
 
-                <button onClick={handleCreateConversation} className="flex items-center justify-center w-9 h-9 rounded-xl text-slate-500 hover:text-slate-200 hover:bg-white/[0.05] transition-colors duration-150 bg-transparent border-none cursor-pointer ">
-                    <Plus size={17}/>
+                <button onClick={() => dispatch(setSelectedConversation(null))} className="flex items-center justify-center w-9 h-9 rounded-xl text-slate-500 hover:text-slate-200 hover:bg-white/[0.05] transition-colors duration-150 bg-transparent border-none cursor-pointer ">
+                    <Plus size={15}/>
                 </button>
 
                 <div className="flex-1 overflow-y-auto px-2.5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pt-5">
@@ -81,14 +81,14 @@ const Sidebar = () => {
                     </div>
                     <span className="hidden lg:block font-medium text-slate-100 tracking-tight flex-1">SaaFlow AI</span>
                     <span className="text-[10px] font-medium text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full tracking-wide">Free</span>
-                    <button onClick={handleCreateConversation} className="flex items-center justify-center w-7 h-7 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-white/[0.5] transition-colors duration-150 bg-transparent border-none cursor-pointer">
+                    <button onClick={() => dispatch(setSelectedConversation(null))} className="flex items-center justify-center w-7 h-7 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-white/[0.5] transition-colors duration-150 bg-transparent border-none cursor-pointer">
                         <PenSquare size={14}/>
                     </button>
                 </div>
                 
                 <div className="px-4 pt-4 pb-1">
-                    <button onClick={() => handleCreateConversation()} className="w-full flex items-center justify-center gap-2 text-sm font-medium text-white bg-linear-to-br from-indigo-500 to-violet-700 rounded-xl py-[10px] border-none cursor-pointer hover:opacity-90 transition-opacity duration-150">
-                        <Plus size={15}/> New Chat
+                    <button onClick={() => dispatch(setSelectedConversation(null))} className="w-full flex items-center justify-center gap-2 text-sm font-medium text-white bg-linear-to-br from-indigo-500 to-violet-700 rounded-xl py-[10px] border-none cursor-pointer hover:opacity-90 transition-opacity duration-150">
+                        <Plus size={17}/> New Chat
                     </button>
                 </div>
 
