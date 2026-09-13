@@ -1,12 +1,21 @@
-import { X } from "lucide-react"
+import { Check, Copy, ExternalLink, X } from "lucide-react"
 import { useState } from "react"
 import Markdown from "react-markdown"
 import remarkGfm from "remark-gfm"
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const MessageBubble = ({role, content, images}) => {
 
   const isUser = role === "user"
   const [lightBox, setLightBox] = useState(null)
+  const [copyCode, setCopyCode] = useState("")
+
+  const handleCopyCode = async (code) => {
+    await navigator.clipboard.writeText(code)
+    setCopyCode(code)
+    setTimeout(() => setCopyCode(""), 2000)
+  }
 
   return (
     <div className={`flex ${isUser ? "justify-end": "justify-start"}`}>
@@ -34,7 +43,7 @@ const MessageBubble = ({role, content, images}) => {
             ul: ({children}) => <ul className="list-disc pl-5 my-2 space-y-1 text-sm text-slate-300">{children}</ul>,
             ol: ({children}) => <ol className="list-decimal pl-5 my-2 space-y-1 text-sm text-slate-300">{children}</ol>,
             li: ({children}) => <li className="leading-relaxed">{children}</li>,
-            a: ({href, children}) => <a href={href} target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300 underline underline-offset-2 cursor-pointer">{children}</a>,
+            a: ({href, children}) => <a href={href} target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300 underline underline-offset-2 cursor-pointer inline-flex items-center gap-1">{children} <ExternalLink size={15}/></a>,
             table: ({children}) => (
               <div className="my-3 w-full overflow-x-auto rounded-xl border border-white/10">
                 <table className="w-full text-left text-xs border-collapse">
@@ -47,6 +56,29 @@ const MessageBubble = ({role, content, images}) => {
             tr: ({children}) => <tr className="hover:bg-white/[0.02] transition-colors">{children}</tr>,
             th: ({children}) => <th className="px-3.5 py-2.5 font-semibold text-slate-100">{children}</th>,
             td: ({children}) => <td className="px-3.5 py-2 whitespace-normal break-words">{children}</td>,
+            code: ({className, children}) => {
+              const value = String(children).trim()
+
+              if(!className) {
+                return (
+                  <code className="px-1.5 py-0.5 rounded bg-white/10 text-indigo-200">{value}</code>
+                )
+              }
+              const language = className.replace("language-","")
+              return (
+                <div className="my-4 overflow-hidden rounded-xl border border-whtie/10 bg-[#111318]">
+                  <div className="flex items-center justify-between bg-[#1b1d24] border-b border-white/10 px-4 py-2">
+                    <span className="uppercase text-xs text-slate-400">{language}</span>
+                    <button onClick={()=>handleCopyCode(value)} className="flex items-center gap-1.5 text-xs cursor-pointer">
+                      {copyCode == value ? <><Check size={14}/>Copied</> : <><Copy size={14}/>Copy</>} 
+                    </button>
+                  </div>
+                  <SyntaxHighlighter language={language} style={oneDark} showLineNumbers wrapLongLines customStyle={{margin:0, padding:"16px", backgroundColor: "#0d1117", fontSize:"13px"}} >
+                    {value}
+                  </SyntaxHighlighter>  
+                </div>
+              )
+            }
           }}>
             {content} 
           </Markdown>    
