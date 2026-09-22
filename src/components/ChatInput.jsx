@@ -50,7 +50,7 @@ function ChatInput() {
     { id: "coding", icon: Code2, label: "Coding" },
     { id: "pdf", icon: FileText, label: "PDF" },
     { id: "ppt", icon: Presentation, label: "PPT"},
-    { id: "image", icon: ImageIcon, label: "Image"},
+    { id: "vision", icon: ImageIcon, label: "vision"},
     { id: "search", icon: Globe, label: "Search"},
   ]
 
