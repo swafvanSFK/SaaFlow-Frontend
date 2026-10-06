@@ -95,7 +95,7 @@ const Sidebar = () => {
                             <X/>
                         </button>
                         <span className="hidden lg:block font-medium text-slate-100 tracking-tight flex-1">SaaFlow AI</span>
-                        <span className="text-[10px] font-medium text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full tracking-wide">Free</span>
+                        <span className="text-[10px] font-medium text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full tracking-wide">{`${userData?.plan || "Free"} Plan`}</span>
                         <button onClick={() => dispatch(setSelectedConversation(null))} className="flex items-center justify-center w-7 h-7 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-white/[0.5] transition-colors duration-150 bg-transparent border-none cursor-pointer">
                             <PenSquare size={14}/>
                         </button>
@@ -150,7 +150,7 @@ const Sidebar = () => {
                             </div>
                             <div className="flex-1 min-w-0">
                                 <p className="text-[13.5px] font-semibold text-slate-100 truncate">{userData?.user?.name || "user"}</p>
-                                <p className="text-[11px] text-slate-600 mt-px">{"Free Plan"}</p>
+                                <p className="text-[11px] text-slate-600 mt-px">{`${userData?.plan || "Free"} Plan`}</p>
                             </div>
 
                             <div className="flex gap-1">
@@ -172,9 +172,9 @@ const Sidebar = () => {
                     </div>
 
                 </div>
-                <BillingDrawer open={showBilling} onClose={() => setShowBilling(false)}/>
 
             </div>
+            <BillingDrawer open={showBilling} onClose={() => setShowBilling(false)}/>
         </>
     )
 }
